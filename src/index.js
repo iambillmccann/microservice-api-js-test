@@ -69,7 +69,11 @@ app.delete('/users/:id', (req, res) => {
     res.status(204).send(); // No content, user deleted
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+// Start the server (only if not in test mode)
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}`);
+    });
+}
+
+module.exports = app; // Export the app for testing
